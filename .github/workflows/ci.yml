@@ -5,7 +5,7 @@ on:
       - opened
   push:
     branches:
-      - 'main'
+      - '**'
 
 jobs:
   build:
