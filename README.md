@@ -1,6 +1,6 @@
 # Eksamen PGR310 - DevOps i skyen ❤️
 
-### Del 1
+## Del 1
 
 Her har selskapet en god del utfordringer. Det første vi kan ta tak i er at de har en manuell deployment-prosess hvor 
 ops-teamet får et artifakt i form av en jar-fil som skal deployes til AWS. Man kan anta at utviklerne har testet jar-filen 
@@ -59,3 +59,17 @@ kan man innføre en ny test-suite som fanger opp feilen man gjorde i senere bygg
 uhell gjorde en kodeendring i en fil som burde ha vært urørt. Uansett er det som sagt da viktig at man har fokus på å lære 
 av det, og ikke som noe man burde unngå. Hvis man da har gode devops-rutiner minimerer man også hvor stor risiko man tar 
 for hver deployment - det er tross alt lettere å rulle tilbake en ettermiddag med arbeid enn tre måneder.
+
+## Del 2 - CI
+
+**Oppgave 3** 
+
+SE PÅ DENNE SENERE!
+
+## Del 3 - Docker
+
+**Oppgave 1**
+
+For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til DOCKER_HUB_USERNAME og DOCKER_HUB_TOKEN 
+som secrets i repoet. Disse vil ikke følge med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig 
+enkelt å stjele hemmeligheter fra en bedrift og potensielt gjøre en god del skade) 
