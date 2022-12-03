@@ -1,16 +1,21 @@
 package no.shoppifly;
 
-import org.junit.jupiter.api.Test;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.junit.Test;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CartServiceTest {
 
-    //Disabled test to avoid issues with MicroMeter
-    /*@Test
+    @MockBean
+    MeterRegistry meterRegistry;
+
+    @Test
     public void shouldRemoveCartAfterCheckout() {
 
-        CartService service = new NaiveCartImpl();
+        CartService service = new NaiveCartImpl(meterRegistry);
         Cart theCart = Cart.builder().build();
         service.update(theCart);
         assertEquals(1, service.getAllsCarts().size());
@@ -18,6 +23,6 @@ public class CartServiceTest {
         assertNotNull(orderId);
 
         assertEquals(0, service.getAllsCarts().size());
-    }*/
+    }
 
 }
