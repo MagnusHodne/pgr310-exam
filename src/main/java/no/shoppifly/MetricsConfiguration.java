@@ -2,6 +2,7 @@ package no.shoppifly;
 
 import io.micrometer.cloudwatch2.CloudWatchConfig;
 import io.micrometer.cloudwatch2.CloudWatchMeterRegistry;
+import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,11 @@ public class MetricsConfiguration {
     public MeterRegistry meterRegistry() {
         CloudWatchConfig cloudWatchConfig = setupCloudWatchConfig();
         return new CloudWatchMeterRegistry(cloudWatchConfig, Clock.SYSTEM, cloudWatchAsyncClient());
+    }
+
+    @Bean
+    public TimedAspect timedAspect(MeterRegistry meterRegistry) {
+        return new TimedAspect(meterRegistry);
     }
 
     private CloudWatchConfig setupCloudWatchConfig() {
