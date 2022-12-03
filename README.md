@@ -82,3 +82,9 @@ For å få denne til å funke med egen Dockerhub-konto forutsetter det at man le
 under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
 med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
 og potensielt gjøre en god del skade) 
+
+**Oppgave 3**
+
+Workflow er modifisert på en slik måte at det skal holde for sensor å legge til AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
+som repository secrets, samt endre ECR_REPOSITORY på linje 28 i `docker.yml` til sitt repository (merk at imaget da ikke
+lenger inkluderer shopifly i navnet sitt...)
