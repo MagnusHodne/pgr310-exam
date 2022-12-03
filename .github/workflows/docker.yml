@@ -28,5 +28,5 @@ jobs:
           ECR_REPOSITORY: 1054
         run: |
           REV=$(git rev-parse --short HEAD)
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$REV .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$REV -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$REV
