@@ -8,9 +8,9 @@ import java.util.List;
 @RestController()
 public class ShoppingCartController {
 
-    @Autowired
     private final CartService cartService;
 
+    @Autowired
     public ShoppingCartController(CartService cartService) {
         this.cartService = cartService;
     }
