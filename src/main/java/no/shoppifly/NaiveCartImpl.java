@@ -1,13 +1,25 @@
 package no.shoppifly;
 
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Component
-class NaiveCartImpl implements CartService {
+@Service
+class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReadyEvent> {
 
     private final Map<String, Cart> shoppingCarts = new HashMap<>();
+    private final MeterRegistry meterRegistry;
+
+    @Autowired
+    public NaiveCartImpl(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+    }
 
     @Override
     public Cart getCart(String id) {
@@ -19,18 +31,18 @@ class NaiveCartImpl implements CartService {
         if (cart.getId() == null) {
             cart.setId(UUID.randomUUID().toString());
         }
-        shoppingCarts.put(cart.getId(), cart);
         return shoppingCarts.put(cart.getId(), cart);
     }
 
     @Override
     public String checkout(Cart cart) {
         shoppingCarts.remove(cart.getId());
+        meterRegistry.counter("checkouts").increment();
         return UUID.randomUUID().toString();
     }
 
     @Override
-    public List<String> getAllsCarts() {
+    public List<String> getAllCarts() {
         return new ArrayList<>(shoppingCarts.keySet());
     }
 
@@ -40,5 +52,12 @@ class NaiveCartImpl implements CartService {
                 .flatMap(c -> c.getItems().stream()
                         .map(i -> i.getUnitPrice() * i.getQty()))
                 .reduce(0f, Float::sum);
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        //This creates a gauge when the application starts up that will then monitor the number of carts
+        Gauge.builder("carts", shoppingCarts, Map::size).register(meterRegistry);
+        Gauge.builder("cartsvalue", this::total).register(meterRegistry);
     }
 }
