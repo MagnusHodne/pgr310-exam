@@ -1,5 +1,7 @@
 package no.shoppifly;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -8,6 +10,12 @@ import java.util.*;
 class NaiveCartImpl implements CartService {
 
     private final Map<String, Cart> shoppingCarts = new HashMap<>();
+    private final MeterRegistry meterRegistry;
+
+    @Autowired
+    public NaiveCartImpl(MeterRegistry meterRegistry) {
+        this.meterRegistry = meterRegistry;
+    }
 
     @Override
     public Cart getCart(String id) {
@@ -17,6 +25,7 @@ class NaiveCartImpl implements CartService {
     @Override
     public Cart update(Cart cart) {
         if (cart.getId() == null) {
+            meterRegistry.counter("carts.count").increment();
             cart.setId(UUID.randomUUID().toString());
         }
         shoppingCarts.put(cart.getId(), cart);
@@ -26,6 +35,7 @@ class NaiveCartImpl implements CartService {
     @Override
     public String checkout(Cart cart) {
         shoppingCarts.remove(cart.getId());
+        meterRegistry.counter("carts.count").increment(-1);
         return UUID.randomUUID().toString();
     }
 
