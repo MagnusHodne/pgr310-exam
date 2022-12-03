@@ -64,12 +64,21 @@ for hver deployment - det er tross alt lettere å rulle tilbake en ettermiddag m
 
 **Oppgave 3** 
 
-SE PÅ DENNE SENERE!
+Oppsett av branch protection:
+
+1. Gå til Settings>Branches
+2. Velg "Add branch protection rule".
+3. Skriv inn "main" under branch name pattern.
+4. Huk av for "Require a pull request before merging" for at ingen skal kunne pushe direkte
+5. Huk av for "Require approvals" (mest sannsynlig automatisk huket av) som dukker opp etter trinnet over
+6. Huk av for "Require status checks to pass before merging", og legg til "build" som status check for at CI og Docker må verifiseres først
+7. Huk av for "do not allow bypassing the above settings" for at reglene også skal gjelde for eieren av repoet (og andre som har rolle med "bypass branch protections" satt)
 
 ## Del 3 - Docker
 
 **Oppgave 1**
 
-For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til DOCKER_HUB_USERNAME og DOCKER_HUB_TOKEN 
-som secrets i repoet. Disse vil ikke følge med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig 
-enkelt å stjele hemmeligheter fra en bedrift og potensielt gjøre en god del skade) 
+For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til `DOCKER_HUB_USERNAME` og `DOCKER_HUB_TOKEN` 
+under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
+med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
+og potensielt gjøre en god del skade) 
