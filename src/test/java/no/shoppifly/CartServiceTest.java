@@ -18,11 +18,11 @@ public class CartServiceTest {
         CartService service = new NaiveCartImpl(meterRegistry);
         Cart theCart = Cart.builder().build();
         service.update(theCart);
-        assertEquals(1, service.getAllsCarts().size());
+        assertEquals(1, service.getAllCarts().size());
         String orderId = service.checkout(theCart);
         assertNotNull(orderId);
 
-        assertEquals(0, service.getAllsCarts().size());
+        assertEquals(0, service.getAllCarts().size());
     }
 
 }

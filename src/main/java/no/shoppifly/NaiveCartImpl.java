@@ -42,7 +42,7 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
     }
 
     @Override
-    public List<String> getAllsCarts() {
+    public List<String> getAllCarts() {
         return new ArrayList<>(shoppingCarts.keySet());
     }
 
