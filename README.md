@@ -82,3 +82,14 @@ For å få denne til å funke med egen Dockerhub-konto forutsetter det at man le
 under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
 med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
 og potensielt gjøre en god del skade) 
+
+**Oppgave 3**
+
+For at ny docker.yml skal fungere mot AWS må følgende gjøres:
+
+1. Gå til IAM>Users på AWS, og søk opp sin IAM-bruker
+2. Under "Security credentials" må man så velge "Create access key", og så ta vare på de to tekststrengene man får (enten
+laste ned .csv-fil, eller lagre det et annet sted)
+3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
+4. Siste steg er å endre ECR_REPOSITORY på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
+lenger inkluderer shopifly i navnet sitt...)
