@@ -85,6 +85,11 @@ og potensielt gjøre en god del skade)
 
 **Oppgave 3**
 
-Workflow er modifisert på en slik måte at det skal holde for sensor å legge til AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
-som repository secrets, samt endre ECR_REPOSITORY på linje 28 i `docker.yml` til sitt repository (merk at imaget da ikke
+For at ny docker.yml skal fungere mot AWS må følgende gjøres:
+
+1. Gå til IAM>Users på AWS, og søk opp sin IAM-bruker
+2. Under "Security credentials" må man så velge "Create access key", og så ta vare på de to tekststrengene man får (enten
+laste ned .csv-fil, eller lagre det et annet sted)
+3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
+4. Siste steg er å endre ECR_REPOSITORY på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
 lenger inkluderer shopifly i navnet sitt...)
