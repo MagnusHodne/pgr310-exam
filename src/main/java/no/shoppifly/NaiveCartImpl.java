@@ -57,5 +57,6 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         //This creates a gauge when the application starts up that will then monitor the number of carts
         Gauge.builder("cart.count", shoppingCarts, Map::size).register(meterRegistry);
+        Gauge.builder("cart.totalsum", this::total).register(meterRegistry);
     }
 }
