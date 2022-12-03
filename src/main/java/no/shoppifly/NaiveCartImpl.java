@@ -1,13 +1,16 @@
 package no.shoppifly;
 
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-class NaiveCartImpl implements CartService {
+class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReadyEvent> {
 
     private final Map<String, Cart> shoppingCarts = new HashMap<>();
     private final MeterRegistry meterRegistry;
@@ -25,7 +28,6 @@ class NaiveCartImpl implements CartService {
     @Override
     public Cart update(Cart cart) {
         if (cart.getId() == null) {
-            meterRegistry.counter("carts.count").increment();
             cart.setId(UUID.randomUUID().toString());
         }
         shoppingCarts.put(cart.getId(), cart);
@@ -35,7 +37,6 @@ class NaiveCartImpl implements CartService {
     @Override
     public String checkout(Cart cart) {
         shoppingCarts.remove(cart.getId());
-        meterRegistry.counter("carts.count").increment(-1);
         return UUID.randomUUID().toString();
     }
 
@@ -50,5 +51,11 @@ class NaiveCartImpl implements CartService {
                 .flatMap(c -> c.getItems().stream()
                         .map(i -> i.getUnitPrice() * i.getQty()))
                 .reduce(0f, Float::sum);
+    }
+
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+        //This creates a gauge when the application starts up that will then monitor the number of carts
+        Gauge.builder("cart.count", shoppingCarts, Map::size).register(meterRegistry);
     }
 }
