@@ -37,7 +37,7 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
     @Override
     public String checkout(Cart cart) {
         shoppingCarts.remove(cart.getId());
-        meterRegistry.counter("cart.checkouts").increment();
+        meterRegistry.counter("checkouts").increment();
         return UUID.randomUUID().toString();
     }
 
@@ -57,7 +57,7 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         //This creates a gauge when the application starts up that will then monitor the number of carts
-        Gauge.builder("cart.count", shoppingCarts, Map::size).register(meterRegistry);
-        Gauge.builder("cart.totalsum", this::total).register(meterRegistry);
+        Gauge.builder("carts", shoppingCarts, Map::size).register(meterRegistry);
+        Gauge.builder("cartsvalue", this::total).register(meterRegistry);
     }
 }
