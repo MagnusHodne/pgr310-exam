@@ -38,7 +38,8 @@ public class ShoppingCartController {
      */
     @PostMapping(path = "/cart")
     public Cart updateCart(@RequestBody Cart cart) {
-        return cartService.update(cart);
+        cartService.update(cart);
+        return cart;
     }
 
     /**

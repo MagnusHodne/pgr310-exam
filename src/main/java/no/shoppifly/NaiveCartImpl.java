@@ -31,7 +31,6 @@ class NaiveCartImpl implements CartService, ApplicationListener<ApplicationReady
         if (cart.getId() == null) {
             cart.setId(UUID.randomUUID().toString());
         }
-        shoppingCarts.put(cart.getId(), cart);
         return shoppingCarts.put(cart.getId(), cart);
     }
 
