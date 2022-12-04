@@ -101,4 +101,7 @@ lenger inkluderer shopifly i navnet sitt...)
 Her er problemet at de ikke har satt opp en separat backend for terraform (en slags database for terraform-operasjoner). 
 Da vil terraform opprette en lokalt på maskinen, og ettersom GitHub actions setter opp nye miljøer for hver run vil det 
 bety at terraform også setter opp denne backenden på nytt hver gang. Med andre ord vil den ikke ha noen måte å se 
-tidligere historikk over hvilke operasjoner som har blitt gjort via terraform, og vil tro at alt må settes opp fra bunnen av
+tidligere historikk over hvilke operasjoner som har blitt gjort via terraform, og vil tro at alt må settes opp fra bunnen av.
+NB! Jeg endret også på workflowen slik at bucketen for analytics nå ender opp med å hete analytics-1054. Alternativt ville 
+det letteste være å slette bucketen, og så la terraform lage den på nytt (men ettersom andre elever også har tilgang til 
+bucketen er nok dette ikke å foretrekke på eksamen ;) )
