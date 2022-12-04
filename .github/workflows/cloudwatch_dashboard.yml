@@ -17,7 +17,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: eu-west-1
       CANDIDATE_ID: 1054
-      CANDIDATE_EMAIL: jim@gaffel.com
+      CANDIDATE_EMAIL: ${{ secrets.CANDIDATE_EMAIL }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Terraform
