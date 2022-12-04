@@ -1,4 +1,8 @@
-# Eksamen PGR310 - DevOps i skyen ❤️
+[![CI pipeline](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/ci.yml/badge.svg)](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/ci.yml)
+[![Docker build](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/docker.yml/badge.svg)](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/docker.yml)
+[![Terraform CloudWatch](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/cloudwatch_dashboard.yml/badge.svg)](https://github.com/MagnusHodne/pgr310-exam/actions/workflows/cloudwatch_dashboard.yml)
+
+# Eksamen PGR310 - DevOps i skyen :heart:
 
 ## Del 1
 
@@ -62,7 +66,7 @@ for hver deployment - det er tross alt lettere å rulle tilbake en ettermiddag m
 
 ## Del 2 - CI
 
-**Oppgave 3** 
+### Oppgave 3
 
 Oppsett av branch protection:
 
@@ -76,37 +80,38 @@ Oppsett av branch protection:
 
 ## Del 3 - Docker
 
-**Oppgave 1**
+### Oppgave 1
 
 For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til `DOCKER_HUB_USERNAME` og `DOCKER_HUB_TOKEN` 
 under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
 med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
-og potensielt gjøre en god del skade) 
+og potensielt gjøre en god del skade :sweat_smile:) 
 
-**Oppgave 3**
+### Oppgave 3
 
 For at ny docker.yml skal fungere mot AWS må følgende gjøres:
 
 1. Gå til IAM>Users på AWS, og søk opp sin IAM-bruker
 2. Under "Security credentials" må man så velge "Create access key", og så ta vare på de to tekststrengene man får (enten
 laste ned .csv-fil, eller lagre det et annet sted)
-3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
-4. Siste steg er å endre ECR_REPOSITORY på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
+3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis `AWS_ACCESS_KEY_ID` og `AWS_SECRET_ACCESS_KEY`
+4. Siste steg er å endre `ECR_REPOSITORY` på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
 lenger inkluderer shopifly i navnet sitt...)
 
 ## Del 5 - Terraform og CloudWatch Dashboards
 
-**Oppgave 1**
+### Oppgave 1
 
 Her er problemet at de ikke har satt opp en separat backend for terraform (en slags database for terraform-operasjoner). 
 Da vil terraform opprette en lokalt på maskinen, og ettersom GitHub actions setter opp nye miljøer for hver run vil det 
 bety at terraform også setter opp denne backenden på nytt hver gang. Med andre ord vil den ikke ha noen måte å se 
 tidligere historikk over hvilke operasjoner som har blitt gjort via terraform, og vil tro at alt må settes opp fra bunnen av.
-NB! Jeg endret også på workflowen slik at bucketen for analytics nå ender opp med å hete analytics-1054. Alternativt ville 
+
+**NB!** Jeg endret også på workflowen slik at bucketen for analytics nå ender opp med å hete analytics-1054. Alternativt ville 
 det letteste være å slette bucketen, og så la terraform lage den på nytt (men ettersom andre elever også har tilgang til 
-bucketen er nok dette ikke å foretrekke på eksamen ;) )
+bucketen er nok dette ikke å foretrekke på eksamen :wink: )
 
-**Alarmer**
+### Alarmer
 
-==NB!== Jeg vil helst slippe å legge ut privat mail offentlig på GitHub, så mail er konfigurert som repository secret i 
-stedet (heter da CANDIDATE_EMAIL)
+**NB!** Jeg vil helst slippe å legge ut privat mail offentlig på GitHub, så mail er konfigurert som repository secret i 
+stedet (heter da `CANDIDATE_EMAIL`). Regner med at dette er innafor :blush:
