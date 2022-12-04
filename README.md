@@ -85,7 +85,12 @@ Oppsett av branch protection:
 For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til `DOCKER_HUB_USERNAME` og `DOCKER_HUB_TOKEN` 
 under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
 med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
-og potensielt gjøre en god del skade :sweat_smile:) 
+og potensielt gjøre en god del skade :sweat_smile:)
+
+### Oppgave 2
+
+Her har jeg valgt å fremdeles hoppe over tester under docker build. Disse kjøres jo i `ci.yml`, så det blir bortkastet
+tid å også kjøre dem under docker build.
 
 ### Oppgave 3
 
@@ -97,6 +102,8 @@ laste ned .csv-fil, eller lagre det et annet sted)
 3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis `AWS_ACCESS_KEY_ID` og `AWS_SECRET_ACCESS_KEY`
 4. Siste steg er å endre `ECR_REPOSITORY` på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
 lenger inkluderer shopifly i navnet sitt...)
+
+(*satte også opp at man oppdaterer latest tag* :wink: )
 
 ## Del 5 - Terraform og CloudWatch Dashboards
 
