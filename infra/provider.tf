@@ -8,6 +8,6 @@ terraform {
   backend "s3" {
     bucket = "pgr301-2021-terraform-state"
     key    = "1054/exam-terraform.state"
-    region = "eu-west-1"
+    region = "eu-north-1"
   }
 }
