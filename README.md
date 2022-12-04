@@ -93,3 +93,12 @@ laste ned .csv-fil, eller lagre det et annet sted)
 3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis AWS_ACCESS_KEY_ID og AWS_SECRET_ACCESS_KEY
 4. Siste steg er å endre ECR_REPOSITORY på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
 lenger inkluderer shopifly i navnet sitt...)
+
+## Del 5 - Terraform og CloudWatch Dashboards
+
+**Oppgave 1**
+
+Her er problemet at de ikke har satt opp en separat backend for terraform (en slags database for terraform-operasjoner). 
+Da vil terraform opprette en lokalt på maskinen, og ettersom GitHub actions setter opp nye miljøer for hver run vil det 
+bety at terraform også setter opp denne backenden på nytt hver gang. Med andre ord vil den ikke ha noen måte å se 
+tidligere historikk over hvilke operasjoner som har blitt gjort via terraform, og vil tro at alt må settes opp fra bunnen av
