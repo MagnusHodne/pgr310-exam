@@ -75,7 +75,8 @@ Oppsett av branch protection:
 3. Skriv inn "main" under branch name pattern.
 4. Huk av for "Require a pull request before merging" for at ingen skal kunne pushe direkte
 5. Huk av for "Require approvals" (mest sannsynlig automatisk huket av) som dukker opp etter trinnet over
-6. Huk av for "Require status checks to pass before merging", og legg til "build" som status check for at CI og Docker må verifiseres først
+6. Huk av for "Require status checks to pass before merging", og legg så til "test", "build" og "Terraform" som required 
+   status checks for at henholdsvis `ci.yml`, `docker.yml` og `cloudwatch_dashboard.yml` må passere
 7. Huk av for "do not allow bypassing the above settings" for at reglene også skal gjelde for eieren av repoet (og andre som har rolle med "bypass branch protections" satt)
 
 ## Del 3 - Docker
@@ -85,7 +86,12 @@ Oppsett av branch protection:
 For å få denne til å funke med egen Dockerhub-konto forutsetter det at man legger til `DOCKER_HUB_USERNAME` og `DOCKER_HUB_TOKEN` 
 under Settings>Secrets>Actions i repoet. Token må også først genereres gjennom docker sine nettsider. Disse vil ikke følge 
 med når man lager en kopi av prosjektet (hvis ikke hadde det vært fryktelig enkelt å stjele hemmeligheter fra en bedrift
-og potensielt gjøre en god del skade :sweat_smile:) 
+og potensielt gjøre en god del skade :sweat_smile:)
+
+### Oppgave 2
+
+Her har jeg valgt å fremdeles hoppe over tester under docker build. Disse kjøres jo i `ci.yml`, så det blir bortkastet
+tid å også kjøre dem under docker build.
 
 ### Oppgave 3
 
@@ -97,6 +103,8 @@ laste ned .csv-fil, eller lagre det et annet sted)
 3. Nøklene fra foregående steg må så legges inn som secrets, henholdsvis `AWS_ACCESS_KEY_ID` og `AWS_SECRET_ACCESS_KEY`
 4. Siste steg er å endre `ECR_REPOSITORY` på linje 28 i `docker.yml` til sensor sitt repository (merk at imaget da ikke
 lenger inkluderer shopifly i navnet sitt...)
+
+(*satte også opp at man oppdaterer latest tag* :wink: )
 
 ## Del 5 - Terraform og CloudWatch Dashboards
 

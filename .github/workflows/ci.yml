@@ -4,11 +4,9 @@ on:
     types:
       - opened
   push:
-    branches:
-      - '**'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
