@@ -75,7 +75,8 @@ Oppsett av branch protection:
 3. Skriv inn "main" under branch name pattern.
 4. Huk av for "Require a pull request before merging" for at ingen skal kunne pushe direkte
 5. Huk av for "Require approvals" (mest sannsynlig automatisk huket av) som dukker opp etter trinnet over
-6. Huk av for "Require status checks to pass before merging", og legg til "build" som status check for at CI og Docker må verifiseres først
+6. Huk av for "Require status checks to pass before merging", og legg så til "test", "build" og "Terraform" som required 
+   status checks for at henholdsvis `ci.yml`, `docker.yml` og `cloudwatch_dashboard.yml` må passere
 7. Huk av for "do not allow bypassing the above settings" for at reglene også skal gjelde for eieren av repoet (og andre som har rolle med "bypass branch protections" satt)
 
 ## Del 3 - Docker
