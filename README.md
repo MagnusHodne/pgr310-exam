@@ -105,3 +105,8 @@ tidligere historikk over hvilke operasjoner som har blitt gjort via terraform, o
 NB! Jeg endret også på workflowen slik at bucketen for analytics nå ender opp med å hete analytics-1054. Alternativt ville 
 det letteste være å slette bucketen, og så la terraform lage den på nytt (men ettersom andre elever også har tilgang til 
 bucketen er nok dette ikke å foretrekke på eksamen ;) )
+
+**Alarmer**
+
+==NB!== Jeg vil helst slippe å legge ut privat mail offentlig på GitHub, så mail er konfigurert som repository secret i 
+stedet (heter da CANDIDATE_EMAIL)
